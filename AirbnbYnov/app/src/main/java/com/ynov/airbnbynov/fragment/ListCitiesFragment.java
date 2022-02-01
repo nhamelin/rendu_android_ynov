@@ -58,8 +58,8 @@ public class ListCitiesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initializeCities();
 
-        Observer<ArrayList<City>> observerList = messages -> {
-            adapter.setCityArrayList(messages);
+        Observer<ArrayList<City>> observerList = cities -> {
+            adapter.setCityArrayList(cities);
             rv.scrollToPosition(adapter.getItemCount()-1);
         };
 
@@ -73,10 +73,10 @@ public class ListCitiesFragment extends Fragment {
     }
 
     public void fetchCities() {
-        Request requestMsg = new Request.Builder()
+        Request requestCity = new Request.Builder()
             .url("https://flutter-learning.mooo.com/villes")
             .build();
-        client.newCall(requestMsg).enqueue(new Callback() {
+        client.newCall(requestCity).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Log.e(TAG, "onFailure: " + "Erreur lors de la récupération des villes : " + e.getMessage());
